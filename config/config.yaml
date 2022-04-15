@@ -1,0 +1,8 @@
+data_path: ./data/ratings.dat
+params:
+  batch_size: 32
+  num_hidden_units: 512
+  corruption_ratio: 0.2
+  learning_rate: 0.001
+  epochs: 20
+  num_workers: 4
