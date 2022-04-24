@@ -66,7 +66,7 @@ def _ap_at_k(actual: np.array, pred: np.array, top_k: int) -> float:
             cnt += 1
             p += cnt / (idx + 1)
 
-    return 0.0 if cnt == 0 else p / cnt
+    return 0.0 if cnt == 0 else p / min(top_k, len(actual))
 
 
 def recall_at_k(actual: np.ndarray, pred: np.ndarray, top_k: int) -> float:
