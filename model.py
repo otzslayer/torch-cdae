@@ -79,6 +79,7 @@ class CDAE(nn.Module):
         torch.Tensor
             Loss value after training one epoch.
         """
+        loss = 0
         # Turn training mode on
         self.train()
 
@@ -92,11 +93,12 @@ class CDAE(nn.Module):
             self.zero_grad()
 
             predict_mat = self.forward(user_idx=indices, matrix=input_mat)
-            loss = loss_f(input=predict_mat, target=input_mat)
-            loss.backward()
+            batch_loss = loss_f(input=predict_mat, target=input_mat)
+            batch_loss.backward()
             optimizer.step()
+            loss += batch_loss
 
-        return loss
+        return loss / len(train_loader)
 
     def predict(self, train_loader: data.DataLoader) -> np.ndarray:
         r"""Predict items per users.
